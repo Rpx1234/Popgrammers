@@ -3,9 +3,23 @@ import React from 'react';
 import { StyleSheet, Text, Button, SafeAreaView, TextInput, Image, Alert} from 'react-native';
 
 export default function App() {
-const [text, onChangeText] = React.useState(null);
-const [text2, onChangeText2] = React.useState(null);
 
+const [name, setname] = useState (null);
+const [password, setpassword] = useState (null)
+
+function SuccessGreeting() {
+  return Alert.alert('Placeholder Success')
+}
+function FailGreeting() {
+  return Alert.alert('Failed Placeholder')
+}
+function onLoginPress () {
+  if (name === "User" && password == "Password") {
+    SuccessGreeting();
+  } else {
+    FailGreeting();
+  }
+}
   return (
     <SafeAreaView style={styles.container}>
 		<Image 
@@ -20,22 +34,20 @@ const [text2, onChangeText2] = React.useState(null);
       </Text>
       <TextInput
         style = {styles.input}
-        onChangeText = {onChangeText}
-        value = {text}
+        onChangeText={(name) => setname(name)}
         placeholder = "Enter Username"
         />
       <TextInput
       style = {styles.input}
-      onChangeText = {onChangeText2}
-      value = {text2}
+      onChangeText ={(password) => setpassword (password)}
       placeholder = "Enter Password"
       />
       <Button
-        onPress= {() => Alert.alert('Button with adjusted color pressed')} 
+        onPress= { onLoginPress} 
+
         title="Log In"
         color="red"
       />
-      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
@@ -60,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 200,
-  },
+  } ,
   Text: {
     fontSize: 14,
     color: 'red',
