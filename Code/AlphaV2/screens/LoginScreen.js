@@ -93,6 +93,11 @@ export const LoginScreen = ({ navigation }) => {
               </>
             )}
           </Formik>
+          {/* Button for signup screen */}
+          <Button style={styles.borderlessButtonContainer} borderless
+          title={'Create a new account?'}
+          onPress = {() => navigation.navigate('Signup')}
+          />
 
         
          
@@ -145,6 +150,11 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: '700',
     
+  },
+  borderlessButtonContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   Text: {
     fontSize: 14,

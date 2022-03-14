@@ -132,7 +132,7 @@ export const SignupScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: 'cornflowerblue',
     paddingHorizontal: 12
   },
   logoContainer: {
