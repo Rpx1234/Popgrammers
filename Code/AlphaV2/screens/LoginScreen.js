@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'cornflowerblue',
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
+    alignItems: 'center'
   },
   logoContainer: {
     alignItems: 'center'
@@ -134,27 +135,28 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     fontWeight: '700',
-    color: Colors.orange
+    color: Colors.orange,
+    alignItems: 'center'
   },
   button: {
     width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     marginTop: 8,
     backgroundColor: Colors.red,
     padding: 10,
-    borderRadius: 8
+    borderRadius: 8,
   },
   buttonText: {
     fontSize: 20,
     color: Colors.white,
     fontWeight: '700',
-    
+
   },
   borderlessButtonContainer: {
-    marginTop: 16,
+    marginTop: 16, 
     alignItems: 'center',
-    justifyContent: 'center'
   },
   Text: {
     fontSize: 14,
