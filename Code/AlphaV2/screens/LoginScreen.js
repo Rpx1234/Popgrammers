@@ -163,5 +163,9 @@ const styles = StyleSheet.create({
     marginTop: 16, 
     alignItems: 'center',
   },
-
+  Text: {
+    fontSize: 14,
+    color: Colors.red,
+    textAlign: 'center'
+  }
 });
