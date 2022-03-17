@@ -138,15 +138,18 @@ export const SignupScreen = ({ navigation }) => {
   );
 };
 
-async function test(){  
+ function test(){  
   // Add a new document with a generated id.
-
-  const res = await database.collection('Users').add({
-    name: 'Tokyo',
-    country: 'Japan'
+  addDoc(collection(database, 'Users'),{
+    test,
+    tes1
   });
   
-  console.log('Added document with ID: ', res.id);
+  
+  
+  
+  
+  
   
   
 }
