@@ -98,6 +98,11 @@ export const LoginScreen = ({ navigation }) => {
           title={'Create a new account?'}
           onPress = {() => navigation.navigate('Signup')}
           />
+          {/* Button for Forgot Password screen */}
+          <Button style={styles.borderlessButtonContainer} borderless
+          title={'Forgot Password?'}
+          onPress = {() => navigation.navigate('ForgotPassword')}
+          />
 
         
          
@@ -158,9 +163,5 @@ const styles = StyleSheet.create({
     marginTop: 16, 
     alignItems: 'center',
   },
-  Text: {
-    fontSize: 14,
-    color: Colors.red,
-    textAlign: 'center'
-  }
+
 });
