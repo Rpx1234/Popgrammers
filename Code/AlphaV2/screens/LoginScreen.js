@@ -27,7 +27,7 @@ export const LoginScreen = ({ navigation }) => {
           {/* LogoContainer: consits app logo and screen title */}
           <View style={styles.logoContainer}>
             <Logo uri={Images.logo} />
-            <Text style={styles.screenTitle}>Hello! Welcome to the Popgrammers app.</Text>
+            <Text style={styles.screenTitle}>Welcome to the Popgrammers app.</Text>
             <Text style={styles.screenTitle}> Please Log in.</Text>
           </View>
           <Formik
@@ -118,7 +118,7 @@ export const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'cornflowerblue',
+    backgroundColor: 'black',
     paddingHorizontal: 12,
     alignItems: 'center'
   },
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: Colors.red,
+    color: Colors.orange,
     paddingTop: 10
   },
   footer: {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: 8,
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.orange,
     padding: 10,
     borderRadius: 8,
   },
@@ -163,9 +163,5 @@ const styles = StyleSheet.create({
     marginTop: 16, 
     alignItems: 'center',
   },
-  Text: {
-    fontSize: 14,
-    color: Colors.red,
-    textAlign: 'center'
-  }
+
 });

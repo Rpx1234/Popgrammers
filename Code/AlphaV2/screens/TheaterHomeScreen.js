@@ -4,7 +4,7 @@ import { View,Button} from '../components';
 import { Colors, auth } from '../config';
 import { signOut } from 'firebase/auth';
 
-export const HomeScreen = () => {
+export const TheaterHomeScreen = () => {
   const handleLogout = () => {
     signOut(auth).catch(error => console.log('Error logging out: ', error));
   };
