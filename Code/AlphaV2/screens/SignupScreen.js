@@ -3,13 +3,11 @@ import { Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
-import { Images, Colors, auth, database} from '../config';
+import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { signupValidationSchema } from '../utils';
-
-//Firestore imports
-import { collection,setDoc, addDoc, orderBy, query, onSnapshot } from 'firebase/firestore';
 
 export const SignupScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState('');
@@ -126,34 +124,15 @@ export const SignupScreen = ({ navigation }) => {
           title={'Already have an account?'}
           onPress={() => navigation.navigate('Login')}
         />
-
-        <Button style={styles.button} onPress={test}>
-          <Text style={styles.buttonText}>Test</Text>
-        </Button>
-
-
-
       </KeyboardAwareScrollView>
     </View>
   );
 };
 
-async function test(){  
-  // Add a new document with a generated id.
-
-  const res = await database.collection('Users').add({
-    name: 'Tokyo',
-    country: 'Japan'
-  });
-  
-  console.log('Added document with ID: ', res.id);
-  
-  
-}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'cornflowerblue',
+    backgroundColor: 'black',
     paddingHorizontal: 12
   },
   logoContainer: {
@@ -162,7 +141,7 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 32,
     fontWeight: '700',
-    color: Colors.black,
+    color: Colors.orange,
     paddingTop: 20
   },
   button: {

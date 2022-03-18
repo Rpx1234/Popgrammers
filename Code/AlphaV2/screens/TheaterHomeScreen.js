@@ -22,7 +22,9 @@ export const TheaterHomeScreen = () => {
           <Button style={styles.button} onPress = {() => navigation.navigate('Reciepts')}>
           <Text style={styles.buttonText}>Reciepts</Text>
           </Button>
-		 <Button title='Sign Out' onPress={handleLogout} />
+		 <Button style={styles.borderlessButtonContainer} borderless
+          title={'Log Out?'}
+          onPress={handleLogout} />
       </View>
   );
 };        
