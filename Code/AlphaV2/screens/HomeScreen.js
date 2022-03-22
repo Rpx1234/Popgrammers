@@ -1,11 +1,25 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { signOut } from 'firebase/auth';
-import {Colors, auth } from '../config';
+import {Colors, auth, db} from '../config';
 import { View, Button} from '../components';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 
 export const HomeScreen = () => {
+  
+  const setData = async() => {
+    const citiesCol = collection(db, 'cities');
+    const citySnapshot = await getDocs(citiesCol);
+    const cityList = citySnapshot.docs.map(doc => doc.data());
+    console.log(cityList);
+
+
+  }
+
+  
+
+
   const handleLogout = () => {
     signOut(auth).catch(error => console.log('Error logging out: ', error));
   };
@@ -19,9 +33,15 @@ export const HomeScreen = () => {
           <Button style={styles.borderlessButtonContainer} borderless
           title={'Log Out?'}
           onPress={handleLogout} />
+
+          <Button style={styles.button} borderless
+          title={'Test'}
+          onPress = {setData}/>
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -44,5 +64,15 @@ const styles = StyleSheet.create({
     marginTop: 16, 
     alignItems: 'center',
   },
+    button: {
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: 8,
+    backgroundColor: Colors.red,
+    padding: 10,
+    borderRadius: 8,
+  }
 
 });
