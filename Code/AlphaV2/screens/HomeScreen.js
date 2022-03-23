@@ -8,7 +8,7 @@ import { getDatabase, ref, set, update, child, get } from "firebase/database";
 //https://www.npmjs.com/package/react-native-uuid
 import uuid from 'react-native-uuid';
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }) => {
   
   
   
@@ -65,6 +65,10 @@ export const HomeScreen = () => {
           <Button style={styles.button} borderless
           title={'Read Users'}
           onPress = {readUsers}/>
+
+          <Button style={styles.button} borderless
+          title={'Next Page'}
+          onPress = {() => navigation.navigate('InventoryScreen')}/>
     </View>
   );
 };

@@ -1,47 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { View} from '../components';
-import { Colors, auth } from '../config';
-import { signOut } from 'firebase/auth';
-import PropTypes from 'prop-types';
+import { Formik } from 'formik';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export const HomeScreen = () => {
-  const handleLogout = () => {
-    signOut(auth).catch(error => console.log('Error logging out: ', error));
-  };
-  }
+import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
+import { Images, Colors, auth } from '../config';
+import { useTogglePasswordVisibility } from '../hooks';
+import { loginValidationSchema } from '../utils';
 
-export default class ItemComponent extends Component {
 
-  static propTypes = {
-      items: PropTypes.array.isRequired
-  };
 
-  render() {
-    return (
-      <View style={styles.itemsList}>
-        {this.props.items.map((item, index) => {
-            return (
-                <View key={index}>
-                    <Text style={styles.itemtext}>{item.name}</Text>
-                </View>
-            )
-        })}
-      </View>
-    );
-  }
-}       
+export const InventoryScreen = ({ navigation }) => {
+  
+  
+  
+  return (
+
+   
+    <View style={styles.container}>
+      <Text style={styles.screenTitle}>Inventory Screen</Text>
+      {/* Buttons */}
+          
+
+          <Button style={styles.button} borderless
+          title={'Next Page'}
+          onPress = {() => navigation.navigate('InventoryScreen')}/>
+    </View>
+  );
+};
+
+
           
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'cornflowerblue',
+	flex: 1,
+    backgroundColor: 'black',
     paddingHorizontal: 12,
     alignItems: 'center'
-  },          
-  borderlessButtonContainer: {
-    marginTop: 16, 
-    alignItems: 'center',
+  },
+  logoContainer: {
+    alignItems: 'center'
+  },
+  screenTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: Colors.orange,
+    paddingTop: 10
   },
   button: {
     width: '50%',
@@ -49,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: 8,
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.orange,
     padding: 10,
     borderRadius: 8,
   },
@@ -57,16 +62,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Colors.white,
     fontWeight: '700',
-    },
-  itemsList: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-    },
-    itemtext: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    }
+
+  },
+  borderlessButtonContainer: {
+    marginTop: 16, 
+    alignItems: 'center',
+  }
   });
   
