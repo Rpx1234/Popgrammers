@@ -19,7 +19,7 @@ export const EmployeeScreen = ({ navigation }) => {
 
    
     <View style={styles.container}>
-      <Text style={styles.screenTitle}>Seat Availability</Text>
+      <Text style={styles.screenTitle}>Employee Information</Text>
       {/* Buttons */}
           <Button style={styles.borderlessButtonContainer} borderless
           title={'Done with Employee information'}

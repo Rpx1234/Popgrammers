@@ -6,5 +6,6 @@ import { InventoryScreen } from './InventoryScreen';
 import { TheaterHomeScreen } from './TheaterHomeScreen';
 import { SeatAvailabilityScreen } from './SeatAvailabilityScreen';
 import { RecieptScreen } from './RecieptScreen';
+import { EmployeeScreen } from './EmployeeScreen';
 
-export { LoginScreen, SignupScreen, HomeScreen, ForgotPasswordScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen, RecieptScreen};
+export { LoginScreen, SignupScreen, HomeScreen, ForgotPasswordScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen, RecieptScreen, EmployeeScreen};

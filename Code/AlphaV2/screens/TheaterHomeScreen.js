@@ -22,13 +22,14 @@ export const TheaterHomeScreen = ({ navigation }) => {
           <Button style={styles.button} onPress = {() => navigation.navigate('RecieptScreen')}>
           <Text style={styles.buttonText}>Reciepts</Text>
           </Button>
-		 <Button style={styles.borderlessButtonContainer} borderless
-          title={'Log Out?'}
-          onPress={handleLogout} />
-          {/* Employee Info */}
+		 {/* Employee Info */}
           <Button style={styles.button} onPress = {() => navigation.navigate('EmployeeScreen')}>
           <Text style={styles.buttonText}>Employees</Text>
           </Button>
+		 <Button style={styles.borderlessButtonContainer} borderless
+          title={'Log Out?'}
+          onPress={handleLogout} />
+          
       </View>
   );
         
