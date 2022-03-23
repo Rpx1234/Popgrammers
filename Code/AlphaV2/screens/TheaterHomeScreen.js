@@ -4,22 +4,22 @@ import { View,Button} from '../components';
 import { Colors, auth } from '../config';
 import { signOut } from 'firebase/auth';
 
-export const TheaterHomeScreen = () => {
+export const TheaterHomeScreen = ({ navigation }) => {
   const handleLogout = () => {
     signOut(auth).catch(error => console.log('Error logging out: ', error));
-  };
+};
  return (		
 		<View style={styles.container}>
 		{/* Inventory button */}
-          <Button style={styles.button} onPress = {() => navigation.navigate('Inventory')}>
+          <Button style={styles.button} onPress = {() => navigation.navigate('InventoryScreen')}>
           <Text style={styles.buttonText}>Inventory</Text>
           </Button>
 		{/* Seat Availablility button */}
-          <Button style={styles.button} onPress = {() => navigation.navigate('SeatAvailability')}>
+          <Button style={styles.button} onPress = {() => navigation.navigate('SeatAvailabilityScreen')}>
           <Text style={styles.buttonText}>Seat Availability</Text>
           </Button>
         {/* Reciepts */}
-          <Button style={styles.button} onPress = {() => navigation.navigate('Reciepts')}>
+          <Button style={styles.button} onPress = {() => navigation.navigate('RecieptScreen')}>
           <Text style={styles.buttonText}>Reciepts</Text>
           </Button>
 		 <Button style={styles.borderlessButtonContainer} borderless
@@ -27,8 +27,8 @@ export const TheaterHomeScreen = () => {
           onPress={handleLogout} />
       </View>
   );
-};        
-          
+        
+    };        
 const styles = StyleSheet.create({
   container: {
     flex: 1,

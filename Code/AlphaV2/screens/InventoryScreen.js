@@ -26,6 +26,9 @@ export const InventoryScreen = ({ navigation }) => {
           <Button style={styles.button} borderless
           title={'Next Page'}
           onPress = {() => navigation.navigate('InventoryScreen')}/>
+          <Button style={styles.borderlessButtonContainer} borderless
+          title={'Done with Inventory'}
+          onPress = {() => navigation.navigate('TheaterHomeScreen')} />
     </View>
   );
 };
