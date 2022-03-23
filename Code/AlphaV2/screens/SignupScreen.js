@@ -3,14 +3,28 @@ import { Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { getDatabase, ref, set, update, child, get } from "firebase/database";
 import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { signupValidationSchema } from '../utils';
+//https://www.npmjs.com/package/react-native-uuid
+import uuid from 'react-native-uuid';
+
+
+
 
 export const SignupScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState('');
+
+  function writeUser(email){
+    const db = getDatabase();
+    set(ref(db, 'users/' + uuid.v4() ),{
+      username: email,
+      type: "customer"
+    });
+    console.log("user added to database");
+  }
 
   const {
     passwordVisibility,
@@ -27,6 +41,9 @@ export const SignupScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password).catch(error =>
       setErrorState(error.message)
     );
+    //calls writeuser function when account created.
+    writeUser(email);
+
   };
 
   return (

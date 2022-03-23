@@ -3,19 +3,43 @@ import { Text, StyleSheet } from 'react-native';
 import { signOut } from 'firebase/auth';
 import {Colors, auth, db} from '../config';
 import { View, Button} from '../components';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getDatabase, ref, set, update, child, get } from "firebase/database";
 
+//https://www.npmjs.com/package/react-native-uuid
+import uuid from 'react-native-uuid';
 
 export const HomeScreen = () => {
   
-  const setData = async() => {
-    const citiesCol = collection(db, 'cities');
-    const citySnapshot = await getDocs(citiesCol);
-    const cityList = citySnapshot.docs.map(doc => doc.data());
-    console.log(cityList);
+  
+  
+  function writeUser(){
+    const db = getDatabase();
+    set(ref(db, 'users/' + uuid.v4() ),{
+      username: auth.currentUser.email,
+      type: "customer"
+    });
+    console.log("complete");
+  }
+
+  
+
+  function readUsers(){
+    
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log("No data available");
+     }
+    }).catch((error) => {
+  console.error(error);
+    });
 
 
   }
+
+  
 
   
 
@@ -35,8 +59,12 @@ export const HomeScreen = () => {
           onPress={handleLogout} />
 
           <Button style={styles.button} borderless
-          title={'Test'}
-          onPress = {setData}/>
+          title={'Write User'}
+          onPress = {writeUser}/>
+
+          <Button style={styles.button} borderless
+          title={'Read Users'}
+          onPress = {readUsers}/>
     </View>
   );
 };
