@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { HomeScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen,RecieptScreen,EmployeeScreen} from '../screens';
+import { HomeScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen,RecieptScreen,EmployeeScreen, CustomerHomeScreen} from '../screens';
 
 const Stack = createStackNavigator();
 
@@ -11,6 +11,7 @@ export const AppStack = () => {
     screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name='CustomerHomeScreen' component={CustomerHomeScreen} />
       <Stack.Screen name='InventoryScreen' component={InventoryScreen} />
       <Stack.Screen name='TheaterHomeScreen' component={TheaterHomeScreen} />
       <Stack.Screen name='SeatAvailabilityScreen' component={SeatAvailabilityScreen} />

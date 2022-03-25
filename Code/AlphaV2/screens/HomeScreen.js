@@ -5,16 +5,15 @@ import {Colors, auth, db} from '../config';
 import { View, Button} from '../components';
 import { getDatabase, ref, set, update, child, get } from "firebase/database";
 
-//https://www.npmjs.com/package/react-native-uuid
-import uuid from 'react-native-uuid';
 
 export const HomeScreen = ({ navigation }) => {
   
   
   
   function writeUser(){
+    const userId = auth.currentUser.uid;    
     const db = getDatabase();
-    set(ref(db, 'users/' + uuid.v4() ),{
+    set(ref(db, 'users/' + userId),{
       username: auth.currentUser.email,
       type: "customer"
     });
@@ -24,11 +23,19 @@ export const HomeScreen = ({ navigation }) => {
   
 
   function readUsers(){
-    
+    const userId = auth.currentUser.uid;    
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/`)).then((snapshot) => {
+    get(child(dbRef, `users/${userId}`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        //fetches the user type:
+        console.log(snapshot.val().type);
+        if(snapshot.val().type == 'customer'){
+          navigation.navigate('CustomerHomeScreen');
+        }
+        if(snapshot.val().type == 'admin'){
+          navigation.navigate('TheaterHomeScreen');
+        }
+        //console.log(snapshot.val());
       } else {
         console.log("No data available");
      }
