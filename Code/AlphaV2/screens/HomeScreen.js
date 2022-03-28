@@ -46,7 +46,7 @@ export const HomeScreen = ({ navigation }) => {
 
   }
 
-  
+  readUsers();
 
   
 

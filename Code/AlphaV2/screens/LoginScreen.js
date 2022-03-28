@@ -3,6 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getDatabase, ref, set, update, child, get } from "firebase/database";
 
 import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
@@ -14,12 +15,16 @@ export const LoginScreen = ({ navigation }) => {
   const { passwordVisibility, handlePasswordVisibility, rightIcon } =
     useTogglePasswordVisibility();
 
+
+  
+  
   const handleLogin = values => {
     const { email, password } = values;
     signInWithEmailAndPassword(auth, email, password).catch(error =>
       setErrorState(error.message)
     );
   };
+  
   return (
     <>
       <View isSafe style={styles.container}>

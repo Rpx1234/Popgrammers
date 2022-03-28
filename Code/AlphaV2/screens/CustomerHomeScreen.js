@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { signOut } from 'firebase/auth';
 import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
+import { getDatabase, ref, set, update, child, get } from "firebase/database";
 
 
 
 export const CustomerHomeScreen = ({ navigation }) => {
   
+  const handleLogout = () => {
+    signOut(auth).catch(error => console.log('Error logging out: ', error));
+  };
   
   
   return (
@@ -30,6 +33,9 @@ export const CustomerHomeScreen = ({ navigation }) => {
           <Button style={styles.button} onPress = {() => navigation.navigate('AccountInfoScreen')}>
           <Text style={styles.buttonText}>Account Information</Text>
           </Button>
+          <Button style={styles.borderlessButtonContainer} borderless
+          title={'Log Out?'}
+          onPress={handleLogout} />
     </View>
   );
 };

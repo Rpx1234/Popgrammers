@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Formik } from 'formik';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -8,15 +8,33 @@ import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
+import { getDatabase, ref, set, update, child, get } from "firebase/database";
 
 
-
+var inventory = [];
 export const InventoryScreen = ({ navigation }) => {
   
-  
+  function readInventory(){
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `inventory/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        inventory = (snapshot.val());
+        return(snapshot.val());
+
+      } else {
+        console.log("No data available");
+     }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+
+
+
   
   return (
-
+    
    
     <View style={styles.container}>
       <Text style={styles.screenTitle}>Inventory Screen</Text>
@@ -29,6 +47,17 @@ export const InventoryScreen = ({ navigation }) => {
           <Button style={styles.borderlessButtonContainer} borderless
           title={'Done with Inventory'}
           onPress = {() => navigation.navigate('TheaterHomeScreen')} />
+          <Button style={styles.button} borderless
+          title={'Read Inventory'}
+          onPress = {readInventory} />
+
+          <Text style={styles.screenTitle}>Look below </Text> 
+          
+          {inventory.map(item=> <inventory key={item.name} arr={item} />)}
+          
+
+
+
     </View>
   );
 };
@@ -38,7 +67,7 @@ export const InventoryScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
 	flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     paddingHorizontal: 12,
     alignItems: 'center'
   },
@@ -70,6 +99,12 @@ const styles = StyleSheet.create({
   borderlessButtonContainer: {
     marginTop: 16, 
     alignItems: 'center',
+  },
+  listItem: {
+    backgroundColor: "orange",
+    borderWidth: 1,
+    borderColor: "#333",
+    padding: 25,
   }
   });
   
