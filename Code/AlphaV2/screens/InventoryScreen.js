@@ -53,7 +53,7 @@ export const InventoryScreen = ({ navigation }) => {
 
           <Text style={styles.screenTitle}>Look below </Text> 
           
-          {inventory.map(item=> <inventory key={item.name} arr={item.qty} />)}
+          {inventory.map(item=> <inventory key={item.name} arr={item} />)}
           
 
 
