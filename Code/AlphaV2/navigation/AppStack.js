@@ -10,7 +10,7 @@ export const AppStack = () => {
     <Stack.Navigator
     screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name='Home' component={CustomerHomeScreen} />
       <Stack.Screen name='CustomerHomeScreen' component={CustomerHomeScreen} />
       <Stack.Screen name='InventoryScreen' component={InventoryScreen} />
       <Stack.Screen name='TheaterHomeScreen' component={TheaterHomeScreen} />
