@@ -8,5 +8,8 @@ import { SeatAvailabilityScreen } from './SeatAvailabilityScreen';
 import { RecieptScreen } from './RecieptScreen';
 import { EmployeeScreen } from './EmployeeScreen';
 import { CustomerHomeScreen } from './CustomerHomeScreen';
+import { OrderScreen } from './OrderScreen';
+import { OrderHistoryScreen } from './OrderHistoryScreen';
+import { AccountInfoScreen } from './AccountInfoScreen';
 
-export { LoginScreen, SignupScreen, HomeScreen, ForgotPasswordScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen, RecieptScreen, EmployeeScreen, CustomerHomeScreen};
+export { LoginScreen, SignupScreen, HomeScreen, ForgotPasswordScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen, RecieptScreen, EmployeeScreen, CustomerHomeScreen, OrderScreen, OrderHistoryScreen,AccountInfoScreen};
