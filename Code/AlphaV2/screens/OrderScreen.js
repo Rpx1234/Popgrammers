@@ -8,18 +8,21 @@ import { View, TextInput, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
-
+import { Picker } from '@react-native-picker/picker';
 
 
 export const OrderScreen = ({ navigation }) => {
-  
-  
-  
+    const [selectedLanguage, setSelectedLanguage] = useState();
   return (
-
-   
     <View style={styles.container}>
       <Text style={styles.screenTitle}>New Order</Text>
+      <Picker
+      	selectedValue={selectedLanguage}
+      	onValueChange= {(itemValue,itemIndex) =>
+      		setSelectedLanguage(itemValue)}>
+      	<Picker.item label = "Theater1 5pm" value= "Theater1"/>
+      	<Picker.item label = "Theater2 5pm" value= "Theater2"/>
+      </Picker>
       {/* Buttons */}
           <Button style={styles.borderlessButtonContainer} borderless
           title={'Cancel Order'}
