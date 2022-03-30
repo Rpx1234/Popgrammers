@@ -31,6 +31,7 @@ export const HomeScreen = ({ navigation }) => {
         console.log(snapshot.val().type);
         if(snapshot.val().type == 'customer'){
           navigation.navigate('CustomerHomeScreen');
+          console.log(snapshot.val());
         }
         if(snapshot.val().type == 'admin'){
           navigation.navigate('TheaterHomeScreen');

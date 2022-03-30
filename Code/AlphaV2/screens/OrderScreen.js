@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Formik } from 'formik';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 import { View, TextInput, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
-import { useTogglePasswordVisibility } from '../hooks';
-import { loginValidationSchema } from '../utils';
-import { Picker } from '@react-native-picker/picker';
-
+import { Picker } from "@react-native-picker/picker";
 
 export const OrderScreen = ({ navigation }) => {
-    const [selectedLanguage, setSelectedLanguage] = useState();
+
+  const [order, setOrder] = useState('Unknown');
+  
   return (
     <View style={styles.container}>
       <Text style={styles.screenTitle}>New Order</Text>
       <Picker
-      	selectedValue={selectedLanguage}
-      	onValueChange= {(itemValue,itemIndex) =>
-      		setSelectedLanguage(itemValue)}>
-      	<Picker.item label = "Theater1 5pm" value= "Theater1"/>
-      	<Picker.item label = "Theater2 5pm" value= "Theater2"/>
+        selectedValue={order}
+        onValueChange={(value, index) => setOrder(value)}
+        mode="dropdown" // Android only
+        style={styles.picker}
+      >
+        <Picker.Item label="Please select your Order" value="Unknown" />
+        <Picker.Item label="Theater1" value="Theater 1 5PM" />
+        <Picker.Item label="Theater2" value="Theater 2 5PM" />
+
+       
       </Picker>
+
+
       {/* Buttons */}
-          <Button style={styles.borderlessButtonContainer} borderless
-          title={'Cancel Order'}
-          onPress = {() => navigation.navigate('CustomerHomeScreen')} />
+      <Button style={styles.borderlessButtonContainer} borderless
+        title={'Cancel Order'}
+      onPress = {() => navigation.navigate('CustomerHomeScreen')} />
     </View>
   );
 };
@@ -68,5 +72,13 @@ const styles = StyleSheet.create({
   borderlessButtonContainer: {
     marginTop: 16, 
     alignItems: 'center',
+  },
+  picker: {
+    marginVertical: 30,
+    width: 300,
+    padding: 10,
+    borderWidth: 5,
+    borderColor: Colors.white,
+    color: Colors.white,
   }
   });
