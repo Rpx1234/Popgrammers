@@ -12,7 +12,7 @@ export const AccountInfoScreen = ({ navigation }) => {
       {/* Buttons */}
           <Button style={styles.borderlessButtonContainer} 
           title={'Done with Account Information'}
-           />
+          onPress = {() => navigation.navigate('CustomerHomeScreen')} />
     </View>
   );
 }
@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     paddingTop: 40
   },
   borderlessButtonContainer: {
-    paddingTop: 40
-
+    marginTop: 30, 
+    alignItems: 'center',
+    paddingTop: 30,
   }
 });
