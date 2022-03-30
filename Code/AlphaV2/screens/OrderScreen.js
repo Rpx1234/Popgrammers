@@ -10,9 +10,9 @@ export const OrderScreen = ({ navigation }) => {
   
   const [order, setOrder] = useState('Unknown');
   const COL = 5;
-  return (
-    
-    
+  	
+  
+  return (   
     <View style={styles.container}>
       <Text style={styles.screenTitle}>New Order</Text>
     {/* Theater Selection */} 
@@ -79,6 +79,15 @@ const styles = StyleSheet.create({
     height: 18,
     marginTop: 8,
     backgroundColor: Colors.orange,
+    padding: 10,
+    borderRadius: 8,
+    marginRight:8
+  },
+  buttontaken: {
+    width: '10%',
+    height: 18,
+    marginTop: 8,
+    backgroundColor: Colors.blue,
     padding: 10,
     borderRadius: 8,
     marginRight:8

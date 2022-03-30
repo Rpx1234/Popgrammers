@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import UploadImage from './UploadImage';
+import {UploadImage} from '../components';
 
-export default function App() {
+export const AccountInfoScreen = ({ navigation }) => {
   return (
 
    
