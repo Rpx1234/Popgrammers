@@ -1,36 +1,22 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { Formik } from 'formik';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import UploadImage from './UploadImage';
 
-import { View, TextInput, Button, FormErrorMessage } from '../components';
-import { Images, Colors, auth } from '../config';
-import { useTogglePasswordVisibility } from '../hooks';
-import { loginValidationSchema } from '../utils';
-
-
-
-export const AccountInfoScreen = ({ navigation }) => {
-  
-  
-  
+export default function App() {
   return (
 
    
     <View style={styles.container}>
       <Text style={styles.screenTitle}>Account Information</Text>
-      
+      <UploadImage/>
       {/* Buttons */}
-          <Button style={styles.borderlessButtonContainer} borderless
+          <Button style={styles.borderlessButtonContainer} 
           title={'Done with Account Information'}
-          onPress = {() => navigation.navigate('CustomerHomeScreen')} />
+           />
     </View>
   );
-};
+}
 
-
-          
 const styles = StyleSheet.create({
   container: {
 	flex: 1,
@@ -44,27 +30,18 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: Colors.orange,
-    paddingTop: 10
+    color: 'orange',
+    paddingTop: 10 ,
+    paddingBottom: 100 
   },
-  button: {
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    marginTop: 8,
-    backgroundColor: Colors.orange,
-    padding: 10,
-    borderRadius: 8,
-  },
-  buttonText: {
-    fontSize: 20,
-    color: Colors.white,
-    fontWeight: '700',
-
+  welcomeUser: {
+    fontSize: 18,
+    fontWeight: '200',
+    color: 'orange',
+    paddingTop: 40
   },
   borderlessButtonContainer: {
-    marginTop: 16, 
-    alignItems: 'center',
+    paddingTop: 40
+
   }
-  });
+});
