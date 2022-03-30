@@ -7,12 +7,16 @@ import { Images, Colors, auth } from '../config';
 import { Picker } from "@react-native-picker/picker";
 
 export const OrderScreen = ({ navigation }) => {
-
-  const [order, setOrder] = useState('Unknown');
   
+  const [order, setOrder] = useState('Unknown');
+  const COL = 5;
   return (
+    
+    
     <View style={styles.container}>
       <Text style={styles.screenTitle}>New Order</Text>
+    {/* Theater Selection */} 
+      <Text style ={styles.text}> Ticket Order</Text>
       <Picker
         selectedValue={order}
         onValueChange={(value, index) => setOrder(value)}
@@ -22,21 +26,32 @@ export const OrderScreen = ({ navigation }) => {
         <Picker.Item label="Please select your Order" value="Unknown" />
         <Picker.Item label="Theater1" value="Theater 1 5PM" />
         <Picker.Item label="Theater2" value="Theater 2 5PM" />
-
-       
       </Picker>
-
-
-      {/* Buttons */}
+	{/* Seat Animation */}	
+	<View style={styles.containerseats}>
+			<Button style={styles.button}>
+          	</Button>
+          	<Button style={styles.button}>
+          	</Button>
+          	<Button style={styles.button} >
+          	</Button>
+          	<Button style={styles.button} >
+          	</Button>
+          	<Button style={styles.button} >
+          	</Button>
+          	<Button style={styles.button} >
+          	</Button>
+          	<Button style={styles.button} >
+          	</Button>
+	</View>
+    {/* Buttons */}
       <Button style={styles.borderlessButtonContainer} borderless
         title={'Cancel Order'}
       onPress = {() => navigation.navigate('CustomerHomeScreen')} />
     </View>
   );
 };
-
-
-          
+        
 const styles = StyleSheet.create({
   container: {
 	flex: 1,
@@ -53,15 +68,20 @@ const styles = StyleSheet.create({
     color: Colors.orange,
     paddingTop: 10
   },
+  text: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: Colors.orange,
+    paddingTop: 10
+  },
   button: {
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
+    width: '10%',
+    height: 18,
     marginTop: 8,
     backgroundColor: Colors.orange,
     padding: 10,
     borderRadius: 8,
+    marginRight:5
   },
   buttonText: {
     fontSize: 20,
@@ -78,7 +98,13 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 10,
     borderWidth: 5,
-    borderColor: Colors.white,
-    color: Colors.white,
-  }
+    color: Colors.black,
+    backgroundColor: 'white',
+ 	},
+ containerseats: {
+	flexDirection: 'row',
+	flex: 1,
+	alignContent: 'space-around',
+	padding: 5
+},
   });
