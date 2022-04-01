@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { getDatabase, ref, set, update, child, get } from "firebase/database";
 import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
-import { Images, Colors, auth } from '../config';
+import { Images, Colors, auth, db } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { signupValidationSchema } from '../utils';
-//https://www.npmjs.com/package/react-native-uuid
-import uuid from 'react-native-uuid';
+
+import { collection, getDocs, addDoc, setDoc, doc } from "firebase/firestore"; 
 
 
 
@@ -25,6 +25,18 @@ export const SignupScreen = ({ navigation }) => {
     });
     console.log("user added to database");
   }
+  
+
+  function writeToFirestore(email){
+    const auth = getAuth();
+    const user = auth.currentUser;
+    console.log(user);
+   
+    setDoc(doc(db,'Users', '1'),{
+      username: email,
+      type: "customer"
+    });
+  }
 
   const {
     passwordVisibility,
@@ -38,11 +50,19 @@ export const SignupScreen = ({ navigation }) => {
   const handleSignup = async values => {
     const { email, password } = values;
 
-    createUserWithEmailAndPassword(auth, email, password).catch(error =>
+    createUserWithEmailAndPassword(auth, email, password).then(function(email){
+      //after account is created a document is added to Users collection with username of current account and default type customer.
+      setDoc(doc(db,'Users', auth.currentUser.uid),{
+       username: auth.currentUser.email,
+        type: "customer"
+       });
+
+
+    }, function(error){
       setErrorState(error.message)
-    );
-    //calls writeuser function when account created.
-    writeUser(email);
+    });
+    
+ 
 
   };
 

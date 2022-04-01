@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { signOut } from 'firebase/auth';
 import {Colors, auth, db} from '../config';
 import { View, Button} from '../components';
 import { getDatabase, ref, set, update, child, get } from "firebase/database";
+import { collection, getDoc, addDoc, setDoc, doc } from "firebase/firestore"; 
 
 
 export const HomeScreen = ({ navigation }) => {
   
   
-  
+  //no longer used
   function writeUser(){
     const userId = auth.currentUser.uid;    
     const db = getDatabase();
@@ -22,6 +23,24 @@ export const HomeScreen = ({ navigation }) => {
 
   
 
+  function fetchUserType(){
+    getDoc(doc(db, "Users", auth.currentUser.uid)).then(docSnap => {
+      if (docSnap.exists()) {
+        //console.log("Document data:", docSnap.data());
+        if(docSnap.data().type == 'customer'){
+          navigation.navigate('CustomerHomeScreen');
+        }
+        if(docSnap.data().type == 'admin'){
+          navigation.navigate('TheaterHomeScreen');
+        }
+      } else {
+        console.log("No such document!");
+      }
+    })
+
+  }
+
+  //no longer used
   function readUsers(){
     const userId = auth.currentUser.uid;    
     const dbRef = ref(getDatabase());
@@ -47,9 +66,12 @@ export const HomeScreen = ({ navigation }) => {
 
   }
 
-  readUsers();
-
+ 
   
+
+  useEffect(() => {
+   fetchUserType();
+  });
 
 
   const handleLogout = () => {
