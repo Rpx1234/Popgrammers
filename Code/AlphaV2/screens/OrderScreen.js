@@ -1,10 +1,12 @@
 import React, { useState, useRef,useEffect  } from 'react';
 import { Text, StyleSheet, SafeAreaView } from 'react-native';
-import { Formik } from 'formik';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { View, TextInput, Button, FormErrorMessage } from '../components';
-import { Images, Colors, auth } from '../config';
+import { View, Button, FormErrorMessage } from '../components';
+import { Colors} from '../config';
 import { Picker } from "@react-native-picker/picker";
+import { getDatabase, ref, set, update, child, get, onValue } from "firebase/database";
+
+import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
+import Counter from "react-native-counters";
 
 export const OrderScreen = ({ navigation }) => {
   
@@ -73,8 +75,8 @@ export const OrderScreen = ({ navigation }) => {
         style={styles.picker}
       >
         <Picker.Item label="Please select your Order" value="Unknown" />
-        <Picker.Item label="Theater1" value="Theater 1 5PM" />
-        <Picker.Item label="Theater2" value="Theater 2 5PM" />
+        <Picker.Item label="Theater 1 5PM" value="Theater 1" />
+        <Picker.Item label="Theater 2 5PM" value="Theater 2" />
       </Picker>
 	{/* Seat Animation */}	
 	<View style={styles.containerseats}>
@@ -106,13 +108,7 @@ export const OrderScreen = ({ navigation }) => {
                 qty = len;
               }} />
             </View>
-            
-            <Button style={styles.button} borderless  title= {'Submit'}   
-              onPress = {() => updateInventory(data.name, qty)}
-            />
-           
-
-          </View>
+   </View>
         </React.Fragment>
         
            
@@ -121,6 +117,10 @@ export const OrderScreen = ({ navigation }) => {
 	
 	
     {/* Buttons */}
+     <Button style={styles.buttonsubmit}  onPress = {() => updateInventory(data.name, qty)}>
+     <Text style={styles.buttonText}>Submit Order</Text>
+      </Button>
+      
       <Button style={styles.borderlessButtonContainer} borderless
         title={'Cancel Order'}
       onPress = {() => navigation.navigate('CustomerHomeScreen')} />
@@ -159,13 +159,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginRight:8
   },
+   buttonsubmit: {
+   width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: 8,
+    backgroundColor: Colors.orange,
+    padding: 10,
+    borderRadius: 8,
+  },
   buttontaken: {
     width: '10%',
     height: 18,
     marginTop: 8,
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.black,
+   	borderColor: Colors.white,
     padding: 10,
-    borderRadius: 8,
+    borderWidth:2,
+    borderRadius:8,
     marginRight:8
   },
   buttonText: {
@@ -192,4 +204,18 @@ const styles = StyleSheet.create({
 	alignContent: 'space-around',
 	padding: 5
 },
+  parent: {
+    
+    flexDirection: "row",
+    
+  },
+  block: {
+    flex: 3,
+    margin: 6,
+  },
+    itemText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#ff9361',
+  },
   });
