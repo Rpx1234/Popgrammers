@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect  } from 'react';
 import { Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Formik } from 'formik';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -10,8 +10,57 @@ export const OrderScreen = ({ navigation }) => {
   
   const [order, setOrder] = useState('Unknown');
   const COL = 5;
-  	
+  const [data, setData] = useState([]);	
   
+    function readInventory(){
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `inventory/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        //inventory = (snapshot.val());
+        console.log(snapshot.val());
+        console.log("test");
+
+
+      } else {
+        console.log("No data available");
+     }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+
+  }
+  
+  const updateInventory = async (name,newqty) => {
+    var docid;
+    const q = query(collection(db, 'Inventory'), where("name" , "==" , name));
+    const querySnapshot =  await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id);
+      docid = doc.id;
+    });
+    const dbRef = doc(db, 'Inventory', docid);
+    updateDoc(dbRef, {
+      qty: newqty
+    });
+  };
+
+
+  
+  
+
+
+  useEffect(() => {
+    const getInventory = async () => {
+      const inventorySnapshot = await getDocs(collection(db, "Inventory"));
+      const inventoryList = inventorySnapshot.docs.map((doc) => doc.data());
+      setData(inventoryList);
+     // console.log(inventoryList);
+  };
+  getInventory();
+}, [])
+
+
   return (   
     <View style={styles.container}>
       <Text style={styles.screenTitle}>New Order</Text>
@@ -43,7 +92,34 @@ export const OrderScreen = ({ navigation }) => {
           	</Button>
           	<Button style={styles.button} >
           	</Button>
+          	
+          	  {data.map((data,qty) =>(
+        <React.Fragment>
+          <View style = {styles.parent}>
+            <View style = {styles.block}>
+              <Text key = {data} style = {styles.itemText}> {data.name}</Text>            
+
+            </View>
+            <View style = {styles.block} >
+              <Counter  start = {parseInt(data.qty)} max = {1000}  onChange={(len, type) => {
+                console.log(len, type);
+                qty = len;
+              }} />
+            </View>
+            
+            <Button style={styles.button} borderless  title= {'Submit'}   
+              onPress = {() => updateInventory(data.name, qty)}
+            />
+           
+
+          </View>
+        </React.Fragment>
+        
+           
+      ))}
 	</View>
+	
+	
     {/* Buttons */}
       <Button style={styles.borderlessButtonContainer} borderless
         title={'Cancel Order'}
