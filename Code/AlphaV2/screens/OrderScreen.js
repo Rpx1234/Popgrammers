@@ -1,55 +1,43 @@
 import React, { useState, useRef,useEffect  } from 'react';
-import { Text, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, LogBox  } from 'react-native';
 import { View, Button, FormErrorMessage } from '../components';
-import { Colors} from '../config';
+import { Colors, db} from '../config';
 import { Picker } from "@react-native-picker/picker";
 import { getDatabase, ref, set, update, child, get, onValue } from "firebase/database";
-
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
-import Counter from "react-native-counters";
 
 export const OrderScreen = ({ navigation }) => {
   
+  LogBox.ignoreLogs(['Setting a timer']);
   const [order, setOrder] = useState('Unknown');
   const COL = 5;
   const [data, setData] = useState([]);	
   
-    function readInventory(){
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `inventory/`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        //inventory = (snapshot.val());
-        console.log(snapshot.val());
-        console.log("test");
+  const [seats, setSeats] = useState([]);	
 
-
-      } else {
-        console.log("No data available");
-     }
-    }).catch((error) => {
-      console.error(error);
-    });
-
-
-  }
   
-  const updateInventory = async (name,newqty) => {
-    var docid;
-    const q = query(collection(db, 'Inventory'), where("name" , "==" , name));
-    const querySnapshot =  await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id);
-      docid = doc.id;
+  const updateSeat = async (taken,rowNum,seat) => {
+    const DocRef = doc(db, "Theaters/Seating/Theater1", rowNum);
+    await updateDoc(DocRef, {
+      [seat] : taken
     });
-    const dbRef = doc(db, 'Inventory', docid);
-    updateDoc(dbRef, {
-      qty: newqty
-    });
+   
+    
   };
 
 
   
   
+   function seatTaken(position){
+    switch(position){
+      case true: return(styles.seatButton); break;
+      case false: return(styles.seatButtonTaken); break;
+    }
+  };
+
+  const handleClick = () => {
+    setState({backgroundColor: Colors.red})
+  }
 
 
   useEffect(() => {
@@ -60,8 +48,16 @@ export const OrderScreen = ({ navigation }) => {
      // console.log(inventoryList);
   };
   getInventory();
-}, [])
+  const getSeating = async () => {
+    const seatSnapshot = await getDocs(collection(db, "Theaters/Seating/Theater1"));
+    const seatList = seatSnapshot.docs.map((doc) => doc.data());
+    setSeats(seatList);
+   //console.log(seatList);
+  };
+  getSeating();
 
+
+}, [])
 
   return (   
     <View style={styles.container}>
@@ -79,7 +75,7 @@ export const OrderScreen = ({ navigation }) => {
         <Picker.Item label="Theater 2 5PM" value="Theater 2" />
       </Picker>
 	{/* Seat Animation */}	
-	<View style={styles.containerseats}>
+	  <View style={styles.containerseats}>
 			<Button style={styles.button}>
           	</Button>
           	<Button style={styles.button}>
@@ -95,26 +91,20 @@ export const OrderScreen = ({ navigation }) => {
           	<Button style={styles.button} >
           	</Button>
           	
-          	  {data.map((data,qty) =>(
-        <React.Fragment>
-          <View style = {styles.parent}>
-            <View style = {styles.block}>
-              <Text key = {data} style = {styles.itemText}> {data.name}</Text>            
-
-            </View>
-            <View style = {styles.block} >
-              <Counter  start = {parseInt(data.qty)} max = {1000}  onChange={(len, type) => {
-                console.log(len, type);
-                qty = len;
-              }} />
-            </View>
-   </View>
-        </React.Fragment>
-        
-           
-      ))}
-	</View>
-	
+     
+	  </View>
+    
+    {seats.map((seats,index1,index2,index3) =>(
+      <React.Fragment>
+        <View style = {styles.containerseats}>
+          <Text style = {styles.itemText}> Row {index1 + 1} </Text>
+          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A')}/>
+          <Button  key = {index1} style = {seatTaken(seats.B)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'B')}/>
+          <Button  key = {index2} style = {seatTaken(seats.C)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'C')}/>
+          <Button  key = {index3} style = {seatTaken(seats.D)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'D')} />
+        </View>
+      </React.Fragment> 
+    ))}
 	
     {/* Buttons */}
      <Button style={styles.buttonsubmit}  onPress = {() => updateInventory(data.name, qty)}>
@@ -153,7 +143,9 @@ const styles = StyleSheet.create({
   button: {
     width: '10%',
     height: 18,
-    marginTop: 8,
+    marginTop: 8,   
+     alignItems: 'center',
+
     backgroundColor: Colors.orange,
     padding: 10,
     borderRadius: 8,
@@ -178,7 +170,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth:2,
     borderRadius:8,
-    marginRight:8
+    marginRight:8,
+    alignItems: 'center',
+    justifyContent: 'center',
+
   },
   buttonText: {
     fontSize: 20,
@@ -204,18 +199,25 @@ const styles = StyleSheet.create({
 	alignContent: 'space-around',
 	padding: 5
 },
-  parent: {
-    
-    flexDirection: "row",
-    
-  },
-  block: {
-    flex: 3,
-    margin: 6,
-  },
-    itemText: {
+seatButton: {
+  width: 60,
+  height: 60,
+  backgroundColor: Colors.blue,
+  padding: 10,
+  borderRadius: 8,
+  marginRight:8
+},
+seatButtonTaken: {
+  width: 60,
+  height: 60,
+  backgroundColor: Colors.red,
+  padding: 10,
+  borderRadius: 8,
+  marginRight:8
+},
+itemText: {
     fontSize: 20,
     fontWeight: '500',
     color: '#ff9361',
-  },
+},
   });
