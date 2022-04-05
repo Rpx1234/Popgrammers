@@ -24,6 +24,14 @@ export const RecieptScreen = ({ navigation }) => {
           <Button style={styles.borderlessButtonContainer} borderless
           title={'Done with Reciepts'}
           onPress = {() => navigation.navigate('TheaterHomeScreen')} />
+          {/* in progress */}
+            <Button style={styles.button} onPress = {() => navigation.navigate('ProgressRecieptScreen')}>
+            <Text style={styles.buttonText}>View in Progress</Text>
+            </Button>
+    {/* finished */}
+          <Button style={styles.button} onPress = {() => navigation.navigate('FinishedRecieptScreen')}>
+          <Text style={styles.buttonText}>View finished</Text>
+          </Button>
     </View>
   );
 };
