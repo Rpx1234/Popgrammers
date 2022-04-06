@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.tsx"],"names":["RNRestart","NativeModules"],"mappings":"6FAAA,yC,GAEQA,CAAAA,S,CAAcC,0B,CAAdD,S,cAMOA,S","sourcesContent":["import { NativeModules } from 'react-native';\n\nconst { RNRestart } = NativeModules;\n\ntype RestartType = {\n  Restart(): void;\n};\n\nexport default RNRestart as RestartType;\n"]}

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect  } from 'react';
 import { Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Formik } from 'formik';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -115,7 +115,6 @@ export const InventoryScreen = ({ navigation }) => {
           
 
 
-
     </View>
     
   );
@@ -125,7 +124,7 @@ export const InventoryScreen = ({ navigation }) => {
           
 const styles = StyleSheet.create({
   container: {
-	flex: 1,
+	  flexGrow: 1,
     backgroundColor: 'black',
     paddingHorizontal: 12,
     alignItems: 'center'

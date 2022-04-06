@@ -1,0 +1,1 @@
+{"version":3,"sources":["react-native-restart.tsx"],"names":["Restart","jest","fn"],"mappings":"0GAEe,CACbA,OAAO,CAAEC,IAAI,CAACC,EAAL,EADI,C","sourcesContent":["// __mocks__/react-native-restart.js\n\nexport default {\n  Restart: jest.fn(),\n};\n"]}

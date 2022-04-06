@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _reactNative=require("react-native");var RNRestart=_reactNative.NativeModules.RNRestart;var _default=RNRestart;exports.default=_default;
+//# sourceMappingURL=index.js.map
