@@ -5,6 +5,8 @@ import { Colors, db} from '../config';
 import { Picker } from "@react-native-picker/picker";
 import { getDatabase, ref, set, update, child, get, onValue } from "firebase/database";
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
+import Counter from "react-native-counters";
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const OrderScreen = ({ navigation }) => {
   
@@ -61,6 +63,7 @@ export const OrderScreen = ({ navigation }) => {
 
   return (   
     <View style={styles.container}>
+    <ScrollView>
       <Text style={styles.screenTitle}>New Order</Text>
     {/* Theater Selection */} 
       <Text style ={styles.text}> Ticket Order</Text>
@@ -74,26 +77,36 @@ export const OrderScreen = ({ navigation }) => {
         <Picker.Item label="Theater 1 5PM" value="Theater 1" />
         <Picker.Item label="Theater 2 5PM" value="Theater 2" />
       </Picker>
-	{/* Seat Animation */}	
-	  <View style={styles.containerseats}>
-			<Button style={styles.button}>
-          	</Button>
-          	<Button style={styles.button}>
-          	</Button>
-          	<Button style={styles.button} >
-          	</Button>
-          	<Button style={styles.button} >
-          	</Button>
-          	<Button style={styles.button} >
-          	</Button>
-          	<Button style={styles.button} >
-          	</Button>
-          	<Button style={styles.button} >
-          	</Button>
-          	
-     
-	  </View>
-    
+	
+	
+
+    {data.map((data,qty) =>(
+        <React.Fragment>
+          <View style = {styles.parent}>
+            <View style = {styles.block}>
+              <Text key = {data} style = {styles.itemText}> {data.name}</Text>            
+
+            </View>
+            <View style = {styles.block} >
+              <Counter  start = {parseInt(data.qty)} max = {1000}  onChange={(len, type) => {
+                console.log(len, type);
+                qty = len;
+              }} />
+            </View>
+            
+            <Button style={styles.button} borderless  title= {'Submit'}   
+              onPress = {() => updateInventory(data.name, qty)}
+            />
+           
+
+          </View>
+        </React.Fragment>
+        
+           
+      ))}
+
+
+    {/* Seat Animation */}	
     {seats.map((seats,index1,index2,index3) =>(
       <React.Fragment>
         <View style = {styles.containerseats}>
@@ -114,6 +127,7 @@ export const OrderScreen = ({ navigation }) => {
       <Button style={styles.borderlessButtonContainer} borderless
         title={'Cancel Order'}
       onPress = {() => navigation.navigate('CustomerHomeScreen')} />
+    </ScrollView>
     </View>
   );
 };
@@ -219,5 +233,14 @@ itemText: {
     fontSize: 20,
     fontWeight: '500',
     color: '#ff9361',
+},
+parent: {
+    
+  flexDirection: "row",
+  
+},
+block: {
+  flex: 3,
+  margin: 6,
 },
   });
