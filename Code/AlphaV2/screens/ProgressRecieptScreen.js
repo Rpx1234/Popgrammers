@@ -67,24 +67,19 @@ export const ProgressRecieptScreen = ({ navigation }) => {
 }, [])
   
 return (
-    
-   
+       
   <View style={styles.container}>
     <Text style={styles.screenTitle}>In Progress</Text>
     {/* Buttons */}
-    
-    <View style = {styles.parent}>
-            <Text key = {data} style = {styles.itemText}> {'Order #'}</Text>            
-            <Text key = {data} style = {styles.itemText}> {'Date'}</Text>    
-            <Text key = {data} style = {styles.itemText}> {'box'}</Text>    
-        </View>
-   
-    {data.map((data,Card_Number) =>(
+    <Text style={styles.subScreenTitle}>Order #                   Date</Text>
+    {/* Buttons */}
+
+    {data.map((data, OrderNum, RecievedDate) =>(
       <React.Fragment>
   
         <View style = {styles.parent}>
-            <Text key = {data} style = {styles.itemText}> {data.OrderNum}</Text>            
-            <Text key = {data} style = {styles.itemText}> {data.RecievedDate}</Text>    
+            <Text key = {data} style = {styles.itemText}> {data.OrderNum + '                            '}</Text>            
+            <Text key = {data} style = {styles.itemText}> {data.RecievedDate + '        '}</Text>    
             <Text key = {data} style = {styles.itemText}> {'box'}</Text>    
         </View>
       </React.Fragment>
@@ -127,6 +122,14 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 20
   },
+  subScreenTitle: {
+    fontSize: 20,
+    fontWeight: '900',
+    color: '#fe4f02',
+    paddingTop: 20,
+    paddingBottom: 0,
+    alignSelf: 'flex-start'
+  },
   buttonText: {
     fontSize: 20,
     color: Colors.white,
@@ -146,6 +149,7 @@ const styles = StyleSheet.create({
   parent: {
     
     flexDirection: "row",
+    alignSelf: 'baseline'
     
   },
   block: {
