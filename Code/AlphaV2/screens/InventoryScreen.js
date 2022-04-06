@@ -66,7 +66,7 @@ export const InventoryScreen = ({ navigation }) => {
      // console.log(inventoryList);
   };
   getInventory();
-}, [])
+}, [])                                                                                        
 
 
   
