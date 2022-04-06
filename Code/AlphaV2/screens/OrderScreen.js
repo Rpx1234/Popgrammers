@@ -5,6 +5,8 @@ import { Colors, db} from '../config';
 import { Picker } from "@react-native-picker/picker";
 import { getDatabase, ref, set, update, child, get, onValue } from "firebase/database";
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
+import Counter from "react-native-counters";
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const OrderScreen = ({ navigation }) => {
   
@@ -35,8 +37,8 @@ export const OrderScreen = ({ navigation }) => {
     }
   };
 
-  const onPress = () => {
-    setState({seatButtonTaken})
+  const handleClick = () => {
+    setState({backgroundColor: Colors.red})
   }
 
 
@@ -61,6 +63,7 @@ export const OrderScreen = ({ navigation }) => {
 
   return (   
     <View style={styles.container}>
+    <ScrollView>
       <Text style={styles.screenTitle}>New Order</Text>
     {/* Theater Selection */} 
       <Text style ={styles.text}> Ticket Order</Text>
@@ -104,7 +107,6 @@ export const OrderScreen = ({ navigation }) => {
 
 
     {/* Seat Animation */}	
-	{/* Seat Animation */}
     {seats.map((seats,index1,index2,index3) =>(
       <React.Fragment>
         <View style = {styles.containerseats}>
@@ -209,34 +211,36 @@ const styles = StyleSheet.create({
 	flexDirection: 'row',
 	flex: 1,
 	alignContent: 'space-around',
-	padding: 5,
+	padding: 5
 },
 seatButton: {
-    width: '10%',
-    height: 18,
-    marginTop: 8,   
-   	alignItems: 'center',
-
-    backgroundColor: Colors.orange,
-    padding: 10,
-    borderRadius: 8,
-    marginRight:8
+  width: 60,
+  height: 60,
+  backgroundColor: Colors.blue,
+  padding: 10,
+  borderRadius: 8,
+  marginRight:8
 },
 seatButtonTaken: {
-    width: '10%',
-    height: 18,
-    marginTop: 8,
-    backgroundColor: Colors.black,
-   	borderColor: Colors.white,
-    padding: 10,
-    borderWidth:2,
-    borderRadius:8,
-    marginRight:8,
-    alignItems: 'center',
+  width: 60,
+  height: 60,
+  backgroundColor: Colors.red,
+  padding: 10,
+  borderRadius: 8,
+  marginRight:8
 },
 itemText: {
     fontSize: 20,
     fontWeight: '500',
     color: '#ff9361',
+},
+parent: {
+    
+  flexDirection: "row",
+  
+},
+block: {
+  flex: 3,
+  margin: 6,
 },
   });
