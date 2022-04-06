@@ -9,7 +9,7 @@ import Counter from "react-native-counters";
 import { ScrollView } from 'react-native-gesture-handler';
 
 export const OrderScreen = ({ navigation }) => {
-  
+  const [counter, setCounter] = useState(0);
   LogBox.ignoreLogs(['Setting a timer']);
   const [order, setOrder] = useState('Unknown');
   const COL = 5;
@@ -37,8 +37,8 @@ export const OrderScreen = ({ navigation }) => {
     }
   };
 
-  const handleClick = () => {
-    setState({backgroundColor: Colors.red})
+  function handleClick (){
+    setState('buttontaken')
   }
 
 
@@ -79,7 +79,19 @@ export const OrderScreen = ({ navigation }) => {
       </Picker>
 	
 	
-
+    {/* Seat Animation */}	
+    {seats.map((seats,index1,index2,index3) =>(
+      <React.Fragment>
+        <View style = {styles.containerseats}>
+          <Text style = {styles.itemText}> Row {index1 + 1} </Text>
+          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A'),handleClick()}/>
+          <Button  key = {index1} style = {seatTaken(seats.B)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'B')}/>
+          <Button  key = {index2} style = {seatTaken(seats.C)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'C')}/>
+          <Button  key = {index3} style = {seatTaken(seats.D)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'D')} />
+        </View>
+      </React.Fragment> 
+    ))}
+	{/* Food order */}
     {data.map((data,qty) =>(
         <React.Fragment>
           <View style = {styles.parent}>
@@ -88,16 +100,12 @@ export const OrderScreen = ({ navigation }) => {
 
             </View>
             <View style = {styles.block} >
-              <Counter  start = {parseInt(data.qty)} max = {1000}  onChange={(len, type) => {
+              
+              <Counter  start = {parseInt(0)} max = {parseInt(data.qty)}  onChange={(len, type) => {
                 console.log(len, type);
                 qty = len;
               }} />
             </View>
-            
-            <Button style={styles.button} borderless  title= {'Submit'}   
-              onPress = {() => updateInventory(data.name, qty)}
-            />
-           
 
           </View>
         </React.Fragment>
@@ -106,18 +114,6 @@ export const OrderScreen = ({ navigation }) => {
       ))}
 
 
-    {/* Seat Animation */}	
-    {seats.map((seats,index1,index2,index3) =>(
-      <React.Fragment>
-        <View style = {styles.containerseats}>
-          <Text style = {styles.itemText}> Row {index1 + 1} </Text>
-          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A')}/>
-          <Button  key = {index1} style = {seatTaken(seats.B)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'B')}/>
-          <Button  key = {index2} style = {seatTaken(seats.C)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'C')}/>
-          <Button  key = {index3} style = {seatTaken(seats.D)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'D')} />
-        </View>
-      </React.Fragment> 
-    ))}
 	
     {/* Buttons */}
      <Button style={styles.buttonsubmit}  onPress = {() => updateInventory(data.name, qty)}>
@@ -139,20 +135,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     alignItems: 'center'
   },
-  logoContainer: {
-    alignItems: 'center'
-  },
   screenTitle: {
     fontSize: 18,
     fontWeight: '700',
     color: Colors.orange,
-    paddingTop: 10
+    paddingTop: 10,
+    textAlign: 'center',
   },
   text: {
     fontSize: 18,
     fontWeight: '700',
     color: Colors.orange,
-    paddingTop: 10
+    paddingTop: 10,
+    textAlign: 'center',
   },
   button: {
     width: '10%',
@@ -214,20 +209,26 @@ const styles = StyleSheet.create({
 	padding: 5
 },
 seatButton: {
-  width: 60,
-  height: 60,
-  backgroundColor: Colors.blue,
-  padding: 10,
-  borderRadius: 8,
-  marginRight:8
+    width: '10%',
+    height: 18,
+    marginTop: 8,
+    backgroundColor: Colors.orange,
+    padding: 10,
+    borderRadius: 8,
+    marginRight:8
 },
 seatButtonTaken: {
-  width: 60,
-  height: 60,
-  backgroundColor: Colors.red,
-  padding: 10,
-  borderRadius: 8,
-  marginRight:8
+    width: '10%',
+    height: 18,
+    marginTop: 8,
+    backgroundColor: Colors.black,
+   	borderColor: Colors.white,
+    padding: 9,
+    borderWidth:2,
+    borderRadius:8,
+    marginRight:8,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
 },
 itemText: {
     fontSize: 20,
