@@ -27,9 +27,42 @@ export const OrderScreen = ({ navigation }) => {
     
   };
 
+var ListofOrders = [];
+  function recordOrder(name,qty){
+	
+	ListofOrders = ListofOrders.filter(function( element ) {
+   		return element !== undefined;
+	});
+	if(ListofOrders.length != 0){
+		for (let i = 0; i < ListofOrders.length; i++ ){
+			console.log(ListofOrders[i][0]);
+			if(ListofOrders[i][0] == name){
+				delete ListofOrders[i];
+			}
+		}
+	}
+	
+	var array = [name,qty];
+	ListofOrders.push(array);
+	console.log(ListofOrders);
 
-  
-  
+	
+};
+  const SubmitOrder = async() =>{
+	for (let i = 0; i < ListofOrders.length; i++ ){
+		const q = query(collection(db, 'Inventory'), where("name" , "==" , ListofOrders[i][0]));
+	    const querySnapshot =  getDocs(q);
+	    	querySnapshot.forEach((doc) => {
+	      	console.log(doc.id);
+	      	docid = doc.id;
+	      	});
+	    const dbRef = doc(db, 'Inventory', docid);
+	    	updateDoc(dbRef, {
+	      	qty: ListofOrders[i][1]
+	    });
+			}
+			console.log("successful");
+	};
    function seatTaken(position){
     switch(position){
       case true: return(styles.seatButton); break;
@@ -37,9 +70,9 @@ export const OrderScreen = ({ navigation }) => {
     }
   };
 
-  function handleClick (){
-    setState('buttontaken')
-  }
+  //function handleClick (){
+  //  setState('buttontaken')
+ // }
 
 
   useEffect(() => {
@@ -84,7 +117,7 @@ export const OrderScreen = ({ navigation }) => {
       <React.Fragment>
         <View style = {styles.containerseats}>
           <Text style = {styles.itemText}> Row {index1 + 1} </Text>
-          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A'),handleClick()}/>
+          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A')}/>
           <Button  key = {index1} style = {seatTaken(seats.B)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'B')}/>
           <Button  key = {index2} style = {seatTaken(seats.C)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'C')}/>
           <Button  key = {index3} style = {seatTaken(seats.D)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'D')} />
@@ -104,6 +137,7 @@ export const OrderScreen = ({ navigation }) => {
               <Counter  start = {parseInt(0)} max = {parseInt(data.qty)}  onChange={(len, type) => {
                 console.log(len, type);
                 qty = len;
+                recordOrder(data.name,qty);
               }} />
             </View>
 
@@ -116,7 +150,7 @@ export const OrderScreen = ({ navigation }) => {
 
 	
     {/* Buttons */}
-     <Button style={styles.buttonsubmit}  onPress = {() => updateInventory(data.name, qty)}>
+     <Button style={styles.buttonsubmit}  onPress = {() => SubmitOrder}>
      <Text style={styles.buttonText}>Submit Order</Text>
       </Button>
       
