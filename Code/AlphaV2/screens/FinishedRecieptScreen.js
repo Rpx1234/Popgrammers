@@ -8,10 +8,12 @@ import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
+import { LogBox } from 'react-native';
 
 
 export const FinishedRecieptScreen = ({ navigation }) => {
-  
+
+LogBox.ignoreLogs(['Setting a timer']);
   return (
 
     <View style={styles.container}>

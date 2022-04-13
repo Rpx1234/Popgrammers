@@ -9,13 +9,15 @@ import { View, TextInput, Logo, Button, FormErrorMessage } from '../components';
 import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
+import { LogBox } from 'react-native';
+
 
 export const LoginScreen = ({ navigation }) => {
+  LogBox.ignoreLogs(['Setting a timer']);
+
   const [errorState, setErrorState] = useState('');
   const { passwordVisibility, handlePasswordVisibility, rightIcon } =
     useTogglePasswordVisibility();
-
-
   
   
   const handleLogin = values => {

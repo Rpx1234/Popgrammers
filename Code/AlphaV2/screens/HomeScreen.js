@@ -5,10 +5,12 @@ import {Colors, auth, db} from '../config';
 import { View, Button} from '../components';
 import { getDatabase, ref, set, update, child, get } from "firebase/database";
 import { collection, getDoc, addDoc, setDoc, doc } from "firebase/firestore"; 
+import { LogBox } from 'react-native';
 
 
 export const HomeScreen = ({ navigation }) => {
-  
+
+LogBox.ignoreLogs(['Setting a timer']);
   
   //no longer used
   function writeUser(){

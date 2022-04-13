@@ -6,8 +6,12 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { passwordResetSchema } from '../utils';
 import { Colors, auth } from '../config';
 import { View, TextInput, Button, FormErrorMessage } from '../components';
+import { LogBox } from 'react-native';
 
 export const ForgotPasswordScreen = ({ navigation }) => {
+
+LogBox.ignoreLogs(['Setting a timer']);
+
   const [errorState, setErrorState] = useState('');
 
   const handleSendPasswordResetEmail = values => {

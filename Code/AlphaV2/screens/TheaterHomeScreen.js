@@ -3,8 +3,14 @@ import { Text, StyleSheet } from 'react-native';
 import { View,Button} from '../components';
 import { Colors, auth } from '../config';
 import { signOut } from 'firebase/auth';
+import { LogBox } from 'react-native';
+
+
 
 export const TheaterHomeScreen = ({ navigation }) => {
+
+LogBox.ignoreLogs(['Setting a timer']);
+
   const handleLogout = () => {
     signOut(auth).catch(error => console.log('Error logging out: ', error));
 };

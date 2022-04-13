@@ -7,6 +7,7 @@ import { getDatabase, ref, set, update, child, get, onValue } from "firebase/dat
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
 import Counter from "react-native-counters";
 import { ScrollView } from 'react-native-gesture-handler';
+import { LogBox } from 'react-native';
 
 export const OrderScreen = ({ navigation }) => {
   const [counter, setCounter] = useState(0);
