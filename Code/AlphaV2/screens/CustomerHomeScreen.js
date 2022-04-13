@@ -8,11 +8,12 @@ import { Images, Colors, auth } from '../config';
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
 import { getDatabase, ref, set, update, child, get } from "firebase/database";
-
+import { LogBox } from 'react-native';
 
 
 export const CustomerHomeScreen = ({ navigation }) => {
-  
+  LogBox.ignoreLogs(['Setting a timer']);
+
   const handleLogout = () => {
     signOut(auth).catch(error => console.log('Error logging out: ', error));
   };

@@ -11,9 +11,14 @@ import { collection, getDocs, updateDoc, doc, query, where } from "firebase/fire
 import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
 
+import { LogBox } from 'react-native';
+
 
 
 export const SeatAvailabilityScreen = ({ navigation }) => {
+
+  LogBox.ignoreLogs(['Setting a timer']);
+  
   const [data, setData] = useState([]);	
   const [seats, setSeats] = useState([]);	
   const [order, setOrder] = useState('Unknown');

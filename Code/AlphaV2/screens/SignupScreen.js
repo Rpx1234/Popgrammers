@@ -10,11 +10,14 @@ import { useTogglePasswordVisibility } from '../hooks';
 import { signupValidationSchema } from '../utils';
 
 import { collection, getDocs, addDoc, setDoc, doc } from "firebase/firestore"; 
-
+import { LogBox } from 'react-native';
 
 
 
 export const SignupScreen = ({ navigation }) => {
+
+LogBox.ignoreLogs(['Setting a timer']);
+
   const [errorState, setErrorState] = useState('');
 
   function writeUser(email){

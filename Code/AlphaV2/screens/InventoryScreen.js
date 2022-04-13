@@ -12,30 +12,14 @@ import { getDatabase, ref, set, update, child, get, onValue } from "firebase/dat
 
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
 import Counter from "react-native-counters";
+import { LogBox } from 'react-native';
 
 export const InventoryScreen = ({ navigation }) => {
 
+  LogBox.ignoreLogs(['Setting a timer']);
 
   const [data, setData] = useState([]);
 
-  function readInventory(){
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `inventory/`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        //inventory = (snapshot.val());
-        console.log(snapshot.val());
-        console.log("test");
-
-
-      } else {
-        console.log("No data available");
-     }
-    }).catch((error) => {
-      console.error(error);
-    });
-
-
-  }
   
   
 

@@ -12,9 +12,12 @@ import { getDatabase, ref, set, update, child, get, onValue } from "firebase/dat
 
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
 import Counter from "react-native-counters";
+import { LogBox } from 'react-native';
 
 export const ProgressRecieptScreen = ({ navigation }) => {
-  
+
+LogBox.ignoreLogs(['Setting a timer']);
+
   const [data, setData] = useState([]);
 
   function readOrders(){
