@@ -21,9 +21,7 @@ export const RecieptScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.screenTitle}>Reciepts</Text>
       {/* Buttons */}
-          <Button style={styles.borderlessButtonContainer} borderless
-          title={'Done with Reciepts'}
-          onPress = {() => navigation.navigate('TheaterHomeScreen')} />
+          
           {/* in progress */}
             <Button style={styles.button} onPress = {() => navigation.navigate('ProgressRecieptScreen')}>
             <Text style={styles.buttonText}>View in Progress</Text>
@@ -32,6 +30,10 @@ export const RecieptScreen = ({ navigation }) => {
           <Button style={styles.button} onPress = {() => navigation.navigate('FinishedRecieptScreen')}>
           <Text style={styles.buttonText}>View finished</Text>
           </Button>
+          
+          <Button style={styles.borderlessButtonContainer} borderless
+          title={'Done with Reciepts'}
+          onPress = {() => navigation.navigate('TheaterHomeScreen')} />
     </View>
   );
 };

@@ -29,13 +29,13 @@ export const OrderScreen = ({ navigation }) => {
 
 var ListofOrders = [];
   function recordOrder(name,qty){
-	
+	console.log(name, qty);
 	ListofOrders = ListofOrders.filter(function( element ) {
    		return element !== undefined;
 	});
 	if(ListofOrders.length != 0){
 		for (let i = 0; i < ListofOrders.length; i++ ){
-			console.log(ListofOrders[i][0]);
+			//console.log(ListofOrders[i][0]);
 			if(ListofOrders[i][0] == name){
 				delete ListofOrders[i];
 			}
@@ -44,13 +44,14 @@ var ListofOrders = [];
 	
 	var array = [name,qty];
 	ListofOrders.push(array);
-	console.log(ListofOrders);
+	//console.log(ListofOrders);
 
 	
 };
   const SubmitOrder = async() =>{
 	for (let i = 0; i < ListofOrders.length; i++ ){
 		const q = query(collection(db, 'Inventory'), where("name" , "==" , ListofOrders[i][0]));
+		//console.log(ListofOrders[i][0]);
 	    const querySnapshot =  getDocs(q);
 	    	querySnapshot.forEach((doc) => {
 	      	console.log(doc.id);
@@ -151,7 +152,7 @@ var ListofOrders = [];
 
 	
     {/* Buttons */}
-     <Button style={styles.buttonsubmit}  onPress = {() => SubmitOrder}>
+     <Button style={styles.buttonsubmit}  onPress = {() => SubmitOrder()}>
      <Text style={styles.buttonText}>Submit Order</Text>
       </Button>
       
