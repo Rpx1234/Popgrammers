@@ -1,4 +1,4 @@
-import React, { useState,setState } from 'react';
+import React, { useState,setState,useEffect } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -41,16 +41,18 @@ export const SeatAvailabilityScreen = ({ navigation }) => {
     }
   };
 
-  function handleClick (){
-    
-  }
-  const getSeating = async () => {
-    const seatSnapshot = await getDocs(collection(db, "Theaters/Seating/Theater1"));
-    const seatList = seatSnapshot.docs.map((doc) => doc.data());
-    setSeats(seatList);
-   //console.log(seatList);
-  };
-  getSeating();
+  
+  useEffect(() => {
+    const getSeating = async () => {
+      const seatSnapshot = await getDocs(collection(db, "Theaters/Seating/Theater1"));
+      const seatList = seatSnapshot.docs.map((doc) => doc.data());
+      setSeats(seatList);
+      };
+    getSeating();
+
+}, [])
+
+
   return (
 
    
@@ -73,10 +75,10 @@ export const SeatAvailabilityScreen = ({ navigation }) => {
       <React.Fragment>
         <View style = {styles.containerseats}>
           <Text style = {styles.itemText}> Row {index1 + 1} </Text>
-          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A'),handleClick()}/>
-          <Button  key = {index1} style = {seatTaken(seats.B)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'B')}/>
-          <Button  key = {index2} style = {seatTaken(seats.C)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'C')}/>
-          <Button  key = {index3} style = {seatTaken(seats.D)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'D')} />
+          <Button  key = {seats} style = {seatTaken(seats.A)}/>
+          <Button  key = {index1} style = {seatTaken(seats.B)}/>
+          <Button  key = {index2} style = {seatTaken(seats.C)}/>
+          <Button  key = {index3} style = {seatTaken(seats.D)}/>
         </View>
       </React.Fragment> 
     ))}
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
 
   },
   borderlessButtonContainer: {
-    marginTop: 16, 
+    marginTop: 200, 
     alignItems: 'center',
   },
   picker: {

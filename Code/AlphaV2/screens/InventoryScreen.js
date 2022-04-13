@@ -33,7 +33,7 @@ export const InventoryScreen = ({ navigation }) => {
     });
     const dbRef = doc(db, 'Inventory', docid);
     updateDoc(dbRef, {
-      qty: query - newqty
+      qty: newqty
     });
   };
 

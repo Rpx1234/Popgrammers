@@ -85,11 +85,8 @@ var ListofOrders = [];
   };
   getInventory();
   const getSeating = async () => {
-       if (Picker == Theater1){
+   
     const seatSnapshot = await getDocs(collection(db, "Theaters/Seating/Theater1"));
-    } else if (Picker == Theater2) {
-	const seatSnapshot = await getDocs(collection(db,"Theaters/Seating/Theater2"));
-	} 
     const seatList = seatSnapshot.docs.map((doc) => doc.data());
     setSeats(seatList);
    //console.log(seatList);
