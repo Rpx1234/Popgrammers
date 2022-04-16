@@ -7,7 +7,6 @@ import { getDatabase, ref, set, update, child, get, onValue } from "firebase/dat
 import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
 import Counter from "react-native-counters";
 import { ScrollView } from 'react-native-gesture-handler';
-import { LogBox } from 'react-native';
 
 export const OrderScreen = ({ navigation }) => {
   const [counter, setCounter] = useState(0);
@@ -15,7 +14,7 @@ export const OrderScreen = ({ navigation }) => {
   const [order, setOrder] = useState('Unknown');
   const COL = 5;
   const [data, setData] = useState([]);	
-  
+  const [selectedValue, setSelectedValue] = useState("java");
   const [seats, setSeats] = useState([]);	
 
   
@@ -72,9 +71,9 @@ var ListofOrders = [];
     }
   };
 
-  //function handleClick (){
-  //  setState('buttontaken')
- // }
+  function TestFunction(value){
+      console.log(value);
+  }
 
 
   useEffect(() => {
@@ -97,6 +96,38 @@ var ListofOrders = [];
 
 }, [])
 
+const [isPressed, setIsPressed] = useState(true);
+const [isPressed1, setIsPressed1] = useState(true);
+const [isPressed2, setIsPressed2] = useState(true);
+const [isPressed3, setIsPressed3] = useState(true);
+
+function onPressed(a,b,c,d){
+  
+  setIsPressed(!isPressed);
+  updateSeat(a,b,c,d);
+  console.log("Color Changed");
+};
+
+function onPressed1(a,b,c,d){
+  
+  setIsPressed1(!isPressed1);
+  updateSeat(a,b,c,d);
+  console.log("Color Changed");
+};
+function onPressed2(a,b,c,d){
+  
+  setIsPressed2(!isPressed2);
+  updateSeat(a,b,c,d);
+  console.log("Color Changed");
+};
+function onPressed3(a,b,c,d){
+  
+  setIsPressed3(!isPressed3);
+  updateSeat(a,b,c,d);
+  console.log("Color Changed");
+};
+
+
   return (   
     <View style={styles.container}>
     <ScrollView>
@@ -104,26 +135,27 @@ var ListofOrders = [];
     {/* Theater Selection */} 
       <Text style ={styles.text}> Ticket Order</Text>
       <Picker
-        selectedValue={order}
-        onValueChange={(value, index) => setOrder(value)}
+        selectedValue={selectedValue}
+        onValueChange={(itemValue, itemIndex) => TestFunction(itemValue)}
         mode="dropdown" // Android only
         style={styles.picker}
+        
       >
         <Picker.Item label="Please select your Order" value="Unknown" />
         <Picker.Item label="Theater 1 5PM" value="Theater 1" />
         <Picker.Item label="Theater 2 5PM" value="Theater 2" />
       </Picker>
-	
+
 	
     {/* Seat Animation */}	
     {seats.map((seats,index1,index2,index3) =>(
       <React.Fragment>
         <View style = {styles.containerseats}>
           <Text style = {styles.itemText}> Row {index1 + 1} </Text>
-          <Button  key = {seats} style = {seatTaken(seats.A)}  onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'A')}/>
-          <Button  key = {index1} style = {seatTaken(seats.B)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'B')}/>
-          <Button  key = {index2} style = {seatTaken(seats.C)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'C')}/>
-          <Button  key = {index3} style = {seatTaken(seats.D)} onPress = {() =>  updateSeat(false, 'Row' + (index1 + 1),'D')} />
+          <Button  key = {seats} style = {isPressed ? seatTaken(seats.A): styles.seatButtonTaken}  onPress = {() => onPressed(false, 'Row' + (index1 + 1),'A')} />
+          <Button  key = {index1} style = {isPressed1 ? seatTaken(seats.B): styles.seatButtonTaken} onPress = {() =>  onPressed1(false, 'Row' + (index1 + 1),'B')}/>
+          <Button  key = {index2} style = {isPressed2 ? seatTaken(seats.C): styles.seatButtonTaken} onPress = {() =>  onPressed2(false, 'Row' + (index1 + 1),'C')}/>
+          <Button  key = {index3} style = {isPressed3 ? seatTaken(seats.D): styles.seatButtonTaken} onPress = {() =>  onPressed3(false, 'Row' + (index1 + 1),'D')} />
         </View>
       </React.Fragment> 
     ))}
