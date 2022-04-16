@@ -13,5 +13,6 @@ import { OrderHistoryScreen } from './OrderHistoryScreen';
 import { AccountInfoScreen } from './AccountInfoScreen';
 import { ProgressRecieptScreen } from './ProgressRecieptScreen';
 import { FinishedRecieptScreen } from './FinishedRecieptScreen';
+import { ViewScreen } from './ViewScreen';
 
-export { LoginScreen, SignupScreen, HomeScreen, ForgotPasswordScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen, RecieptScreen, EmployeeScreen, CustomerHomeScreen, OrderScreen, OrderHistoryScreen,AccountInfoScreen, ProgressRecieptScreen, FinishedRecieptScreen};
+export { LoginScreen, SignupScreen, HomeScreen, ForgotPasswordScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen, RecieptScreen, EmployeeScreen, CustomerHomeScreen, OrderScreen, OrderHistoryScreen,AccountInfoScreen, ProgressRecieptScreen, FinishedRecieptScreen, ViewScreen};

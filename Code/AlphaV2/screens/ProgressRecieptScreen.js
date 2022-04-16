@@ -10,7 +10,7 @@ import { useTogglePasswordVisibility } from '../hooks';
 import { loginValidationSchema } from '../utils';
 import { getDatabase, ref, set, update, child, get, onValue } from "firebase/database";
 
-import { collection, getDocs, updateDoc, doc, query, where } from "firebase/firestore"; 
+import { collection, getDocs, updateDoc, doc, query, where, setDoc } from "firebase/firestore"; 
 import Counter from "react-native-counters";
 import { LogBox } from 'react-native';
 
@@ -19,7 +19,7 @@ export const ProgressRecieptScreen = ({ navigation }) => {
 LogBox.ignoreLogs(['Setting a timer']);
 
   const [data, setData] = useState([]);
-
+  
   function readOrders(){
     const dbRef = ref(getDatabase());
     get(child(dbRef, `orders/`)).then((snapshot) => {
@@ -37,36 +37,36 @@ LogBox.ignoreLogs(['Setting a timer']);
 
 
   }
-  
-  
 
-  const updateOrders = async (Card_Number) => {
+  const updateOrders = async (OrderNum, newstatus) => {
     var docid;
-    const q = query(collection(db, 'Orders'), where("Card_Number" , "==" , Card_Number));
+    const q = query(collection(db, 'Orders'), where("OrderNum" , "==" , OrderNum));
     const querySnapshot =  await getDocs(q);
     querySnapshot.forEach((doc) => {
       console.log(doc.id);
       docid = doc.id;
     });
+
     const dbRef = doc(db, 'Orders', docid);
     updateDoc(dbRef, {
-      Card_Number: Card_Number
+     status: newstatus 
     });
+    navigation.navigate('RecieptScreen');
+    navigation.navigate('ProgressRecieptScreen');
+    
   };
-
-
-  
-  
-
 
   useEffect(() => {
     const getOrders = async () => {
-      const ordersSnapshot = await getDocs(collection(db, "Orders"));
+      const statusList = query(collection(db, 'Orders'), where("status", "==", "active"));
+      const ordersSnapshot = await getDocs(statusList);
+      
       const ordersList = ordersSnapshot.docs.map((doc) => doc.data());
       setData(ordersList);
       //console.log(ordersList);
   };
   getOrders();
+  
 }, [])
   
 return (
@@ -74,17 +74,26 @@ return (
   <View style={styles.container}>
     <Text style={styles.screenTitle}>In Progress</Text>
     {/* Buttons */}
-    <Text style={styles.subScreenTitle}>Order #                   Date</Text>
+    <Text style={styles.subScreenTitle}>Order #               Date</Text>
     {/* Buttons */}
 
     {data.map((data, OrderNum, RecievedDate) =>(
-      <React.Fragment>
-  
+      <React.Fragment> 
         <View style = {styles.parent}>
-            <Text key = {data} style = {styles.itemText}> {data.OrderNum + '                            '}</Text>            
-            <Text key = {data} style = {styles.itemText}> {data.RecievedDate + '        '}</Text>    
-            <Text key = {data} style = {styles.itemText}> {'box'}</Text>    
+        <Button style={styles.borderlessButtonContainer} borderless
+            title={data.OrderNum + '                            '}        
+            onPress = {() => navigation.navigate('ViewScreen', {choiceOrderNum: data.OrderNum})} />
+                   
+            <Text key = {data} style = {styles.itemText}> {data.RecievedDate + '     '}</Text> 
+               
+            <Button style={styles.button} borderless  title= {'finish'}   
+              onPress = {() => updateOrders(data.OrderNum, 'inactive')}
+              
+            />
+            
+        
         </View>
+    
       </React.Fragment>
       
          
@@ -94,13 +103,6 @@ return (
     <Button style={styles.borderlessButtonContainer} borderless
       title={'Return To Receipts'}
     onPress = {() => navigation.navigate('RecieptScreen')} />
-       
-
-        
-          
-        
-
-
 
   </View>
   
@@ -140,8 +142,9 @@ const styles = StyleSheet.create({
 
   },
   borderlessButtonContainer: {
-    marginTop: 16, 
+    marginTop: 2, 
     alignItems: 'center',
+    
   },
   itemText: {
     fontSize: 20,
@@ -166,9 +169,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 10,
     backgroundColor: '#fe4f02',
-    padding: 4,
+    padding: 2,
     borderRadius: 8,
-    height: 30,
+    height: 23,
     color: '#f6f6f6'
   }
   });

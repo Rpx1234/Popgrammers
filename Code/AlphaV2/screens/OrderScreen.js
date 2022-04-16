@@ -1,5 +1,5 @@
 import React, { useState, useRef,useEffect  } from 'react';
-import { Text, StyleSheet, SafeAreaView, LogBox  } from 'react-native';
+import { Text, StyleSheet, SafeAreaView } from 'react-native';
 import { View, Button, FormErrorMessage } from '../components';
 import { Colors, db} from '../config';
 import { Picker } from "@react-native-picker/picker";

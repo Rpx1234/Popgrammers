@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { HomeScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen,RecieptScreen,EmployeeScreen, CustomerHomeScreen, OrderScreen, OrderHistoryScreen, AccountInfoScreen, ProgressRecieptScreen, FinishedRecieptScreen} from '../screens';
+import { HomeScreen, InventoryScreen, TheaterHomeScreen, SeatAvailabilityScreen,RecieptScreen,EmployeeScreen, CustomerHomeScreen, OrderScreen, OrderHistoryScreen, AccountInfoScreen, ProgressRecieptScreen, FinishedRecieptScreen, ViewScreen} from '../screens';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +22,7 @@ export const AppStack = () => {
       <Stack.Screen name='AccountInfoScreen' component={AccountInfoScreen} />
       <Stack.Screen name='ProgressRecieptScreen' component={ProgressRecieptScreen} />
       <Stack.Screen name='FinishedRecieptScreen' component={FinishedRecieptScreen} />
+      <Stack.Screen name='ViewScreen' component={ViewScreen} />
     </Stack.Navigator>
   );
 };

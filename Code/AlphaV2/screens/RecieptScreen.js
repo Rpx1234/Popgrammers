@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   screenTitle: {
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: '700',
     color: Colors.orange,
     paddingTop: 10
