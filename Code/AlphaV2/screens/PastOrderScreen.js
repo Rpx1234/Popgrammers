@@ -13,42 +13,56 @@ import { getDatabase, ref, set, update, child, get, onValue } from "firebase/dat
 import { collection, getDocs, updateDoc, doc, query, where, setDoc } from "firebase/firestore"; 
 import Counter from "react-native-counters";
 import { LogBox } from 'react-native';
+import { TabRouter } from '@react-navigation/native';
 
-export const PastOrderScreen = ({ navigation }) => {
+export const PastOrderScreen = ({ route,navigation }) => {
 
 LogBox.ignoreLogs(['Setting a timer']);
 
   const [data, setData] = useState([]);
-
+  const {choiceOrderNum} = route.params;
+  const [user, setUser] = useState([]);
   useEffect(() => {
     const getOrders = async () => {
-      const statusList = query(collection(db, 'Orders'));
+      const statusList = query(collection(db, 'Orders'), where("OrderNum", "==", choiceOrderNum));
       const ordersSnapshot = await getDocs(statusList);
       
       const ordersList = ordersSnapshot.docs.map((doc) => doc.data());
       setData(ordersList);
       //console.log(ordersList);
   };
+    const getUsers = async () => {
+      const usersList = query(collection(db, 'Users'), where ("encode", "==", "data.UserID"));
+      const UsersSnapshot = await getDocs(usersList);
+      const uList = UsersSnapshot.docs.map((doc) => doc.user());
+      setUser(uList);
+    };
   getOrders();
-  
+  getUsers();
 }, [])
   
 return (
        
   <View style={styles.container}>
-    <Text style={styles.screenTitle}>Past Orders</Text>
+    <Text style={styles.screenTitle}>Order Summary</Text>
     {/* Buttons */}
-    <Text style={styles.subScreenTitle}>Order #                   Date</Text>
-    {/* Buttons */}
-
+  
+  
     {data.map((data, OrderNum, RecievedDate) =>(
       <React.Fragment> 
         <View style = {styles.parent}>
-            
-            <Button style={styles.borderlessButtonContainer} borderless
-            title={data.OrderNum + '                            '}        
-            onPress = {() => navigation.navigate('ViewScreen', {choiceOrderNum: data.OrderNum})} />
-            <Text key = {data} style = {styles.itemText}> {data.RecievedDate + '        '}</Text>    
+        <Text key = {data} style = {styles.itemText}> {'Order Number: ' +choiceOrderNum}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'User: ' +auth.currentUser.email}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'Recieved Date: '+data.RecievedDate}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'Status: '+data.status}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'Drinks: '+data.Drink}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'Food: '+data.Food}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'Seats: '+data.Seats}</Text> 
+        <Text key = {data} style = {styles.itemText}> {'Card Number: '+data.Card_Number}</Text>
+        <Text key = {data} style = {styles.itemText}> {'Expiration Date: ' +data.Exp_Date}</Text>  
+           
+        
+           
         
         </View>
     
@@ -56,18 +70,10 @@ return (
       
          
     ))}
-  
-    
+
     <Button style={styles.borderlessButtonContainer} borderless
-      title={'Return To Receipts'}
-    onPress = {() => navigation.navigate('RecieptScreen')} />
-       
-
-        
-          
-        
-
-
+      title={'Return To Home'}
+    onPress = {() => navigation.navigate('CustomerHomeScreen')} />
 
   </View>
   
@@ -111,7 +117,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     
   },
-  
   itemText: {
     fontSize: 20,
     fontWeight: '500',
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
   },
   parent: {
     
-    flexDirection: "row",
+    flexDirection: "column",
     alignSelf: 'baseline'
     
   },
@@ -135,9 +140,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 10,
     backgroundColor: '#fe4f02',
-    padding: 4,
+    padding: 2,
     borderRadius: 8,
-    height: 30,
+    height: 23,
     color: '#f6f6f6'
   }
   });
