@@ -65,7 +65,7 @@ export const SeatAvailabilityScreen = ({ navigation }) => {
         mode="dropdown" // Android only
         style={styles.picker}
       >
-        <Picker.Item label="Please select your Order" value="Unknown" />
+        <Picker.Item label="Please Select Your Theater" value="Unknown" />
         <Picker.Item label="Theater 1 5PM" value="Theater 1" />
         <Picker.Item label="Theater 2 5PM" value="Theater 2" />
       </Picker>

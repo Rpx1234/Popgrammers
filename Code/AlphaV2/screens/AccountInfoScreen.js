@@ -16,7 +16,7 @@ export const AccountInfoScreen = ({ navigation }) => {
       <Text style={styles.screenTitle}>Account Information</Text>
       <Text style={styles.welcomeUser}>Hello {name}!</Text>
       <View style={styles.logoContainer}>
-      <Logo uri={Images.stop} />
+      <Logo uri={Images.logo} />
         </View>
       <View style={styles.container2}>
       <Text style={styles.emailName}>Your Email</Text>

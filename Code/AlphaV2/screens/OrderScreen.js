@@ -186,7 +186,7 @@ function onPressed3(a,b,c,d){
 
 	
     {/* Buttons */}
-     <Button style={styles.buttonsubmit}  onPress = {() => SubmitOrder()}>
+     <Button style={styles.buttonsubmit}  onPress = {() => navigation.navigate('CustomerHomeScreen')}>
      <Text style={styles.buttonText}>Submit Order</Text>
       </Button>
       
