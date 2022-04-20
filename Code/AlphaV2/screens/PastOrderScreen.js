@@ -58,8 +58,7 @@ return (
         <Text key = {data} style = {styles.itemText}> {'Drinks: '+data.Drink}</Text> 
         <Text key = {data} style = {styles.itemText}> {'Food: '+data.Food}</Text> 
         <Text key = {data} style = {styles.itemText}> {'Seats: '+data.Seats}</Text> 
-        <Text key = {data} style = {styles.itemText}> {'Card Number: '+data.Card_Number}</Text>
-        <Text key = {data} style = {styles.itemText}> {'Expiration Date: ' +data.Exp_Date}</Text>  
+ 
            
         
            
